@@ -1,0 +1,21 @@
+Feature,Type,Missing (%),Mean,Median,Std,Min,Max,Notes
+Order_ID,categorical,0.0,,,,,,"Levels: ['ialx566343618' 'akqg208421122' 'njpu434582536' 'rjto796129700'
+ 'zguw716275638' 'fxuu788413734' 'njmo150975311' 'jvjc772545076'
+ 'uaeb808891380' 'bgvc052754213']..."
+Agent_Age,numeric,0.0,29.56,30.0,5.76,20,39,
+Agent_Rating,numeric,0.12,4.64,4.7,0.31,2.5,5.0,
+Order_Date,categorical,0.0,,,,,,"Levels: ['2022-03-19' '2022-03-25' '2022-04-05' '2022-03-26' '2022-03-11'
+ '2022-03-04' '2022-03-14' '2022-03-20' '2022-02-12' '2022-02-13']..."
+Pickup_Time,categorical,0.0,,,,,,"Levels: ['11:45:00' '19:50:00' '08:45:00' '18:10:00' '13:45:00' '21:30:00'
+ '19:30:00' '17:30:00' '21:05:00' '22:10:00']..."
+Weather,categorical,0.0,,,,,,Levels: ['Sunny' 'Stormy' 'Sandstorms' 'Cloudy' 'Fog' 'Windy']
+Vehicle,categorical,0.0,,,,,,Levels: ['motorcycle ' 'scooter ' 'van']
+Area,categorical,0.0,,,,,,Levels: ['Urban ' 'Metropolitian ' 'Semi-Urban ' 'Other']
+Delivery_Time,numeric,0.0,124.91,125.0,51.93,10,270,
+Category,categorical,0.0,,,,,,"Levels: ['Clothing' 'Electronics' 'Sports' 'Cosmetics' 'Toys' 'Snacks' 'Shoes'
+ 'Apparel' 'Jewelry' 'Outdoors']..."
+distance_km,numeric,0.0,27.26,9.22,303.82,1.47,6884.73,
+day_of_week,numeric,0.0,3.0,3.0,1.97,0,6,
+is_weekend,numeric,0.0,0.28,0.0,0.45,0,1,
+hour,numeric,0.0,17.43,19.0,4.82,0.0,23.0,
+traffic_level,numeric,0.0,2.38,2.0,1.25,1,4,

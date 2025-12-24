@@ -1,18 +1,19 @@
 import pandas as pd
+from haversine import haversine
 
 def load_dataset(file_path):
     return pd.read_csv(file_path)
 
-def haversine(coord1, coord2):
-    import numpy as np
-    R = 6371  # Earth radius in km
-    lat1, lon1 = np.radians(coord1)
-    lat2, lon2 = np.radians(coord2)
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    a = np.sin(dlat/2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon/2)**2
-    c = 2 * np.arcsin(np.sqrt(a))
-    return R * c
+# def haversine(coord1, coord2):
+#     import numpy as np
+#     R = 6371  # Earth radius in km
+#     lat1, lon1 = np.radians(coord1)
+#     lat2, lon2 = np.radians(coord2)
+#     dlat = lat2 - lat1
+#     dlon = lon2 - lon1
+#     a = np.sin(dlat/2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon/2)**2
+#     c = 2 * np.arcsin(np.sqrt(a))
+#     return R * c
 
 def preprocess_amazon(df):
     # Distance
