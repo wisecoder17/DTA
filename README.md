@@ -82,18 +82,20 @@ The best model was selected based on **lowest test MAE**, prioritizing real-worl
 
 ## Project Structure
 
-```bash
-.
+```
+Delivery_ETA
 ├── data/
 │   ├── raw/
 │   └── processed/
 ├── notebooks/
 │   ├── 01_eda.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   └── 03_modeling.ipynb
+│   └── 02_modeling.ipynb
 ├── src/
-│   ├── train.py
+│   ├── model.py
 │   └── predict.py
+│   └── preprocess.py
+│   └── analysis.py
+│   └── eda_summary.py
 ├── models/
 │   ├── amazon_best_model.pkl
 │   └── Weather_encoder.pkl
@@ -102,6 +104,9 @@ The best model was selected based on **lowest test MAE**, prioritizing real-worl
 │   └── tables/
 ├── README.md
 └── requirements.txt
+```
+
+---
 
 
 ## Inference & Prediction
@@ -109,8 +114,10 @@ The best model was selected based on **lowest test MAE**, prioritizing real-worl
 CLI Execution
 ```bash
 python src/predict.py
+```
 
 Programmatic Usage
+```bash
 from src.predict import predict_delivery_time
 
 predict_delivery_time(
@@ -122,39 +129,41 @@ predict_delivery_time(
     is_weekend=1
 )
 
-
+```
 The inference pipeline automatically:
 
-Computes distance if not provided
+- Computes distance if provided longitude and latitude only
 
-Normalizes categorical inputs
+- Normalizes categorical inputs
 
-Applies the same encoders used during training
+- Applies the same encoders used during training
 
-Key Insights
+---
 
-Traffic level is the strongest predictor of delivery time.
+## Key Insights
 
-Temporal features (hour and weekday) show consistent influence.
+- Traffic level is the strongest predictor of delivery time.
 
-Distance alone is insufficient, confirming the need for contextual features.
+- Temporal features (hour and weekday) show consistent influence.
 
-Ensemble models significantly outperform linear baselines.
+- Distance alone is insufficient, confirming the need for contextual features.
 
-Artifacts & Reproducibility
+- Ensemble models significantly outperform linear baselines.
 
-Trained model and encoders are serialized using joblib
+- Artifacts & Reproducibility
 
-All plots and tables are stored under results/
+- Trained model and encoders are serialized using joblib
 
-Inference logic is fully decoupled from training logic
+- All plots and tables are stored under results/
 
-Future Improvements
+- Inference logic is fully decoupled from training logic
 
-Residual and error distribution analysis
+## Future Improvements
 
-Integration of real-time traffic data
+- Residual and error distribution analysis
 
-API deployment (FastAPI)
+- Integration of real-time traffic data
 
-Continuous retraining with additional datasets
+- API deployment (FastAPI)
+
+- Continuous retraining with additional datasets
