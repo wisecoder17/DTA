@@ -35,11 +35,11 @@ It covers **data preprocessing, feature engineering, model training, evaluation,
 
 ## Problem Statement
 
-Accurate delivery time estimation is critical for:  
+Accurate delivery time estimation is critical for:
 
-- Optimizing customer experience  
-- Supporting operational planning  
-- Improving logistics and fleet efficiency  
+- Optimizing customer experience
+- Supporting operational planning
+- Improving logistics and fleet efficiency
 
 Delivery time is influenced by non-linear, interacting factors, making it a **regression problem** best addressed with ensemble learning.
 
@@ -49,12 +49,12 @@ Delivery time is influenced by non-linear, interacting factors, making it a **re
 
 **Primary dataset:** Amazon Delivery Dataset (~43,000 rows)
 
-**Contains:**  
+**Contains:**
 
-- Store & drop-off coordinates  
-- Order timestamps  
-- Traffic conditions  
-- Weather categories  
+- Store & drop-off coordinates
+- Order timestamps
+- Traffic conditions
+- Weather categories
 - Actual delivery time (target variable)
 
 **Data Provenance:** Publicly available; preprocessed chronologically to prevent data leakage.
@@ -66,14 +66,14 @@ Delivery time is influenced by non-linear, interacting factors, making it a **re
 <details>
 <summary>Click to expand engineered features</summary>
 
-| Feature        | Description                                         |
-|----------------|-----------------------------------------------------|
-| distance_km    | Haversine distance between store and drop-off location |
-| hour           | Hour of day extracted from order timestamp         |
-| day_of_week    | Integer-encoded weekday (0–6)                      |
-| is_weekend     | Binary weekend indicator                            |
-| traffic_level  | Ordinal traffic encoding (Low → Jam)               |
-| weather        | One-hot encoded categorical feature                |
+| Feature       | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| distance_km   | Haversine distance between store and drop-off location |
+| hour          | Hour of day extracted from order timestamp             |
+| day_of_week   | Integer-encoded weekday (0–6)                          |
+| is_weekend    | Binary weekend indicator                               |
+| traffic_level | Ordinal traffic encoding (Low → Jam)                   |
+| weather       | One-hot encoded categorical feature                    |
 
 **Consistency:** All transformations applied during training are reused during inference.
 
@@ -83,18 +83,18 @@ Delivery time is influenced by non-linear, interacting factors, making it a **re
 
 ## Modeling Strategy
 
-**Models Trained:**  
+**Models Trained:**
 
-- Linear Regression  
-- K-Nearest Neighbors (KNN)  
-- Random Forest  
-- XGBoost (**Selected Best Model**)  
+- Linear Regression
+- K-Nearest Neighbors (KNN)
+- Random Forest
+- XGBoost (**Selected Best Model**)
 
-**Evaluation Metrics:**  
+**Evaluation Metrics:**
 
-- Mean Absolute Error (MAE) – primary  
-- Root Mean Squared Error (RMSE)  
-- R² Score  
+- Mean Absolute Error (MAE) – primary
+- Root Mean Squared Error (RMSE)
+- R² Score
 
 **Selection Criterion:** Lowest test MAE for operational relevance.
 
@@ -102,12 +102,12 @@ Delivery time is influenced by non-linear, interacting factors, making it a **re
 
 ## Results Summary
 
-| Model             | MAE                     | RMSE         | R²  |
-|------------------|------------------------|--------------|-----|
-| Linear Regression | High                   | High         | Low |
-| KNN               | Moderate               | Moderate     | Low |
-| Random Forest     | Overfitting observed   | Unstable     | Low |
-| XGBoost           | Best                   | Best         | 0.33 |
+| Model             | MAE                  | RMSE     | R²   |
+| ----------------- | -------------------- | -------- | ---- |
+| Linear Regression | High                 | High     | Low  |
+| KNN               | Moderate             | Moderate | Low  |
+| Random Forest     | Overfitting observed | Unstable | Low  |
+| XGBoost           | Best                 | Best     | 0.33 |
 
 **Key Insight:** XGBoost captures non-linear interactions between traffic, time, and distance and generalizes best.
 
@@ -115,16 +115,18 @@ Delivery time is influenced by non-linear, interacting factors, making it a **re
 
 ## Project Structure
 
+```
 Delivery_ETA/
 ├── data/
 │   ├── raw/
 │   └── processed/
 ├── notebooks/
-│   ├── 01_eda.ipynb
-│   └── 02_modeling.ipynb
+│   ├── eda_amazon.ipynb
+│   └── modeling_amazon.ipynb
 ├── src/
-│   ├── preprocess.py
-│   ├── model.py
+│   ├── preprocessing.py
+│   ├── dl_model.py
+│   ├── eda_summary.py
 │   ├── train_model.py
 │   ├── evaluate_model.py
 │   └── predict.py
@@ -136,6 +138,7 @@ Delivery_ETA/
 │   └── tables/
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
@@ -148,23 +151,26 @@ cd Delivery_ETA
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate       # Linux/Mac
-venv\Scripts\activate          # Windows
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
 ```
 
-⸻
+---
 
-Usage
+### Usage
 
 Command-Line Interface
+
 ```
 python src/predict.py
 ```
+
 Programmatic API
+
 ```
 from src.predict import predict_delivery_time
 
@@ -177,27 +183,31 @@ predict_delivery_time(
     is_weekend=1
 )
 ```
-Features:
-	•	Computes distance if only coordinates are provided
-	•	Normalizes categorical inputs
-	•	Applies same encoders as used during training
 
-⸻
+Features:
+
+- Computes distance if only coordinates are provided
+- Normalizes categorical inputs
+- Applies same encoders as used during training
+
+---
 
 Key Insights
-	•	Traffic level is the strongest predictor
-	•	Temporal features (hour, weekday) influence delivery time
-	•	Distance alone is insufficient; contextual features are essential
-	•	Ensemble models outperform linear baselines
-	•	Model and encoders are serialized; inference logic decoupled from training
-	•	All plots and tables are stored under results/
 
-⸻
+- Traffic level is the strongest predictor
+- Temporal features (hour, weekday) influence delivery time
+- Distance alone is insufficient; contextual features are essential
+- Ensemble models outperform linear baselines
+- Model and encoders are serialized; inference logic decoupled from training
+- All plots and tables are stored under results/
+
+---
 
 Future Improvements
-	•	Residual and error distribution analysis
-	•	Integration of real-time traffic data
-	•	API deployment (FastAPI)
-	•	Continuous retraining with additional datasets
 
-⸻
+- Residual and error distribution analysis
+- Integration of real-time traffic data
+- API deployment (FastAPI)
+- Continuous retraining with additional datasets
+
+---
